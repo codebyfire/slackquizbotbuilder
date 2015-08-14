@@ -1,14 +1,14 @@
-/// <reference path="../../typings/angularjs/angular.d.ts"/>
+/// <reference path="../typings/angularjs/angular.d.ts"/>
 
-angular.module('com.codebyfire.slackquizbotgenerator', ['ui.bootstrap', 'ui.sortable']);
-angular.module('com.codebyfire.slackquizbotgenerator').config(['$provide', function ($provide){
+angular.module('com.codebyfire.slackquizbotbuilder', ['ui.bootstrap', 'ui.sortable']);
+angular.module('com.codebyfire.slackquizbotbuilder').config(['$provide', function ($provide){
     $provide.decorator('accordionDirective', function($delegate) { 
         var directive = $delegate[0];
         directive.replace = true;
         return $delegate;
     });
 }]);
-angular.module('com.codebyfire.slackquizbotgenerator').controller('QuizCtrl', function ($scope, $modal, $document) {
+angular.module('com.codebyfire.slackquizbotbuilder').controller('QuizCtrl', function ($scope, $modal, $document) {
   
   $scope.openSettingsModal = function () {
     var modalInstance = $modal.open({
@@ -49,15 +49,7 @@ angular.module('com.codebyfire.slackquizbotgenerator').controller('QuizCtrl', fu
     showScoreInterval: 1
   };
 
-  $scope.questions = [
-    {
-      text: 'What is the capital of France?',
-      answers: [{
-        text: ["Paris"]
-      }],
-      answersNeeded: 1,
-    }
-  ];
+  $scope.questions = [];
   
   $scope.importJSON = function(json) {
     var imported = angular.fromJson(json);
@@ -105,7 +97,7 @@ angular.module('com.codebyfire.slackquizbotgenerator').controller('QuizCtrl', fu
 });
 
 
-angular.module('com.codebyfire.slackquizbotgenerator').controller('SettingsInstanceCtrl', function ($scope, $modalInstance, settings) {
+angular.module('com.codebyfire.slackquizbotbuilder').controller('SettingsInstanceCtrl', function ($scope, $modalInstance, settings) {
   $scope.settings = settings;
 
   $scope.ok = function () {
@@ -113,7 +105,7 @@ angular.module('com.codebyfire.slackquizbotgenerator').controller('SettingsInsta
   };
 });
 
-angular.module('com.codebyfire.slackquizbotgenerator').controller('ImportInstanceCtrl', function ($scope, $modalInstance) {
+angular.module('com.codebyfire.slackquizbotbuilder').controller('ImportInstanceCtrl', function ($scope, $modalInstance) {
   $scope.ok = function () {
     $modalInstance.close($scope.importedJSON);
   };

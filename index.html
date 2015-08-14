@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="com.codebyfire.slackquizbotgenerator" id="top">
+<html lang="en" ng-app="com.codebyfire.slackquizbotbuilder" id="top">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="icon" href="assets/favicon.ico" />
-    <title>Slack Quizbot Quiz Generator</title>
-    <meta name="description" content="Tool to generate ">
+    <title>Slack Quizbot Quiz Builder</title>
+    <meta name="description" content="Tool to build quizzes for Slack Quizbot ">
     <link data-require="jqueryui" data-semver="1.10.0" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/css/smoothness/jquery-ui-1.10.0.custom.min.css" />
     <script data-require="jquery" data-semver="2.1.1" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script data-require="jqueryui" data-semver="1.10.0" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js"></script>
@@ -70,8 +70,8 @@
             <div class="col-md-12">
                 <div class="row" style="position:relative">
                     <div class="col-md-9" style="padding-bottom:10px">
-                        <h1>Slack Quizbot Quiz Generator<br></h1>
-                        Generate quizzes for <a href="https://github.com/wallis2xk/slackquizbot" target="_blank">Slack Quizbot</a> to use
+                        <h1>Slack Quizbot Quiz Builder<br></h1>
+                        Create quizzes for <a href="https://github.com/wallis2xk/slackquizbot" target="_blank">Slack Quizbot</a> to use
                     </div>
                     <div class="col-md-3" style="position: absolute; right:0; bottom:10px;">
                         <button type="button" class="btn btn-xs" ng-click="openImportModal()" style="float:right">Import Quiz</button>
@@ -84,7 +84,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2" for="inputQuestion">Question:</label>
                                 <div class="col-md-10">
-                                    <textarea ng-model="question.text" class="form-control" id="inputQuestion" placeholder="New question"></textarea>
+                                    <textarea ng-model="question.text" class="form-control" id="inputQuestion" placeholder="Enter your question"></textarea>
                                     <div ng-show="question.image" class="input-group">
                                         <input type="text" ng-model="question.image" class="form-control input-sm" placeholder="Image URL">
                                         <span class="input-group-btn">
@@ -103,7 +103,7 @@
                                 <label class="control-label col-md-2" for="inputQuestion">Answer{{(question.answers.length > 1 ? " " + ($index+1) : "")}}:</label>
                                 <div class="col-md-10">
                                     <div ng-show="$first && $parent.$index == 0" ng-repeat="answerText in answer.text track by $index">
-                                        <input type="text" ng-model="answer.text[$index]" class="form-control" placeholder="Answer">
+                                        <input type="text" ng-model="answer.text[$index]" class="form-control" placeholder="Enter your answer">
                                     </div>
                                     <div ng-show="$first && $parent.$index > 0" class="input-group" ng-repeat="answerText in answer.text track by $index">
                                         <input type="text" ng-model="answer.text[$index]" class="form-control" placeholder="Answer alternative">
@@ -123,7 +123,9 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2">&nbsp;</label>
                                 <div class="col-md-10">
-                                    <button type="button" class="btn btn-info btn-sm" ng-click="addAnswer($index)">Add another answer</button>
+                                    <div ng-show="question.answers[0].text[0].length">
+                                        <button type="button" class="btn btn-info btn-sm" ng-click="addAnswer($index)">Add another answer</button><span popover="Questions can have multiple answers which need to be answered to complete the question (e.g. Name the three most populated countries)" popover-trigger="mouseenter" class="glyphicon glyphicon-question-sign"></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -155,9 +157,9 @@
                     </accordion>
                 </form>
                 <div class="text-center">
-                    <button type="button" class="btn btn-primary" ng-click="addQuestion()">Add New Question</button>&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn btn-default" ng-click="openSettingsModal()">Quiz Settings</button><br><br>
-                    <button type="button" class="btn btn-success" ng-click="downloadJSON()">Download JSON</button>&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-primary" ng-click="addQuestion()">Add {{questions.length ? "New" : "First"}} Question</button><br><br>
+                    <button type="button" class="btn btn-default" ng-show="questions.length" ng-click="openSettingsModal()">Quiz Settings</button><br><br>
+                    <button type="button" class="btn btn-success" ng-show="questions.length" ng-click="downloadJSON()">Download JSON</button>
                 </div>
             </div>
         </div>
