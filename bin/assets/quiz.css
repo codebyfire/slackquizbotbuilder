@@ -1,0 +1,40 @@
+body {
+    opacity: 1;
+    -webkit-transition: opacity 1s ease;
+    -moz-transition: opacity 1s ease;
+    transition: opacity 1s;
+}
+
+.ng-cloak {
+    opacity: 0;
+}
+
+.ng-invalid {
+    border: 1px solid red !important;
+}
+
+.ng-question {
+    width: 100%;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 800px;
+  }
+}
+
+.panel-default {
+    background-color: #eee;
+}
+.panel-default .panel-heading {
+    background-color: #337BB7;
+    color:#fff;
+}
+
+.panel-title {
+    font-weight: bold;
+}
+
+.panel-heading .a:hover {
+    text-decoration: none;
+}
