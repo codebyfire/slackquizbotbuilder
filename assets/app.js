@@ -39,8 +39,6 @@ angular.module('com.codebyfire.slackquizbotbuilder').controller('QuizCtrl', func
     });
   };
   
-  $scope.importedJSON = {};
-  
   $scope.settings = {
     startQuestionGap: 3,
     questionTime: 60,
