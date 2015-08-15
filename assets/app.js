@@ -1,6 +1,6 @@
 /// <reference path="../typings/angularjs/angular.d.ts"/>
 
-angular.module('com.codebyfire.slackquizbotbuilder', ['ui.bootstrap', 'ui.sortable']);
+angular.module('com.codebyfire.slackquizbotbuilder', ['ngAnimate', 'ui.bootstrap', 'ui.sortable']);
 angular.module('com.codebyfire.slackquizbotbuilder').config(['$provide', function ($provide){
     $provide.decorator('accordionDirective', function($delegate) { 
         var directive = $delegate[0];
@@ -46,7 +46,7 @@ angular.module('com.codebyfire.slackquizbotbuilder').controller('QuizCtrl', func
     questionTime: 60,
     nextQuestionGap: 10,
     pointsPerQuestion: 1,
-    showScoreInterval: 1
+    randomise: false
   };
 
   $scope.questions = [];
@@ -68,14 +68,14 @@ angular.module('com.codebyfire.slackquizbotbuilder').controller('QuizCtrl', func
   }
 
   $scope.addQuestion = function() {
-    $scope.questions.push({text:"", answers:[{text:[""]}], answersNeeded:1});
+    $scope.questions.push({text:"", answers:[{text:[""]}]});
   };
   $scope.removeQuestion = function(questionId) {
     $scope.questions.splice(questionId, 1);
   };
   
   $scope.addImage = function(questionId) {
-    $scope.questions[questionId].image = "Image URL";
+    $scope.questions[questionId].image = "";
   };
   $scope.removeImage = function(questionId) {
     delete $scope.questions[questionId].image;
@@ -83,7 +83,7 @@ angular.module('com.codebyfire.slackquizbotbuilder').controller('QuizCtrl', func
   
   $scope.addAnswer = function(questionId) {
     var newItemNo = $scope.questions[questionId].answers.length;
-    $scope.questions[questionId].answers.push({text:["Answer " + (newItemNo+1)]});
+    $scope.questions[questionId].answers.push({text:[""]});
   };
   $scope.removeAnswer = function(questionId, answerId) {
     $scope.questions[questionId].answers.splice(answerId, 1);
