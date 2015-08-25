@@ -63,6 +63,9 @@ angular.module('com.codebyfire.slackquizbotbuilder').controller('QuizCtrl', func
     for(var i=0; i<$scope.questions.length; i++) {
       delete $scope.questions[i].isCollapsed;
     }
+    for(var id in $scope.settings) {
+      if($scope.settings[id] == null) delete $scope.settings[id];
+    }
     element.setAttribute('href', 'data:json;charset=utf-8,' + angular.toJson({questions:$scope.questions, settings:$scope.settings}));
     element.setAttribute('download', 'myquiz.json');
     element.style.display = 'none';
