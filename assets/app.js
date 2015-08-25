@@ -18,6 +18,9 @@ angular.module('com.codebyfire.slackquizbotbuilder').controller('QuizCtrl', func
       resolve: {
         settings: function () {
           return $scope.settings;
+        },
+        questions: function () {
+          return $scope.questions;
         }
       }
     });
@@ -57,6 +60,9 @@ angular.module('com.codebyfire.slackquizbotbuilder').controller('QuizCtrl', func
   
   $scope.downloadJSON = function() {
     var element = $document[0].createElement('a');
+    for(var i=0; i<$scope.questions.length; i++) {
+      delete $scope.questions[i].isCollapsed;
+    }
     element.setAttribute('href', 'data:json;charset=utf-8,' + angular.toJson({questions:$scope.questions, settings:$scope.settings}));
     element.setAttribute('download', 'myquiz.json');
     element.style.display = 'none';
@@ -95,8 +101,9 @@ angular.module('com.codebyfire.slackquizbotbuilder').controller('QuizCtrl', func
 });
 
 
-angular.module('com.codebyfire.slackquizbotbuilder').controller('SettingsInstanceCtrl', function ($scope, $modalInstance, settings) {
+angular.module('com.codebyfire.slackquizbotbuilder').controller('SettingsInstanceCtrl', function ($scope, $modalInstance, settings, questions) {
   $scope.settings = settings;
+  $scope.questions = questions;
 
   $scope.ok = function () {
     $modalInstance.close($scope.settings);
